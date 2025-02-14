@@ -15,7 +15,7 @@ from fast_zero.models import User
 
 pwd_context = PasswordHash.recommended()
 
-o2auth_scheme = OAuth2PasswordBearer(tokenUrl='token')
+o2auth_scheme = OAuth2PasswordBearer(tokenUrl='auth/token')
 
 
 SECRET_KEY = 'chave_secreta'
