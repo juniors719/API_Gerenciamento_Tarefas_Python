@@ -137,6 +137,7 @@ def delete_user(
         raise HTTPException(
             status_code=HTTPStatus.FORBIDDEN, detail='Not enough permission'
         )
+
     session.delete(current_user)
     session.commit
     return {'message': 'User deleted'}
