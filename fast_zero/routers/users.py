@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 from fast_zero.database import get_session
 from fast_zero.models import User
 from fast_zero.schemas import (
+    FilterPage,
     MessageSchema,
     UserList,
     UserPublic,
@@ -23,6 +24,7 @@ router = APIRouter(prefix='/users', tags=['users'])
 
 T_Session = Annotated[Session, Depends(get_session)]
 T_CurrentUser = Annotated[User, Depends(get_current_user)]
+T_FilterUsers = Annotated[FilterPage, Query()]
 
 
 @router.post(
@@ -66,8 +68,10 @@ def create_user(user: UserSchema, session: T_Session):
     summary='Lista todos os usuários',
     description='Retorna uma lista com todos os usuários cadastrados',
 )
-def read_users(session: T_Session, limit: int = 10, skip: int = 0):
-    users = session.scalars(select(User).limit(limit).offset(skip))
+def read_users(session: T_Session, filter_users: T_FilterUsers):
+    users = session.scalars(
+        select(User).limit(filter_users.limit).offset(filter_users.offset)
+    )
     return {'users': users}
 
 
