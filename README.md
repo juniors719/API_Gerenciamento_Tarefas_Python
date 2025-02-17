@@ -53,9 +53,27 @@ cd API_Gerenciamento_Tarefas_Python
 cp .env.example .env
 ```
 
+4. Preencha o arquivo `.env` com as informações necessárias:
+```bash
+# Configurações do banco de dados
+# Altere os valores de db_user, db_password e db_name à sua escolha
+DATABASE_URL=postgresql+psycopg://db_user:db_password@localhost:5432/dbname
+# Configurações do JWT
+ALGORITHM=HS256
+# Chave secreta para assinatura do token
+SECRET_KEY=your_secret_key
+# Tempo de expiração do token em minutos
+ACCESS_TOKEN_EXPIRES_MINUTES=30
+```
+
 4. Construa e inicie os containers com Docker Compose:
 ```bash
-docker-compose -f compose.yml up --build
+docker-compose -f compose.yaml up --build
+```
+
+5. Acesse a aplicação no seu navegador:
+```bash
+http://localhost:8000
 ```
 
 
