@@ -19,7 +19,7 @@ app = FastAPI(
     contact={
         "name": "Djalma Júnior",
         "email": "junior.silva@alu.ufc.br",
-        "url": "https://github.com/seu-usuario/seu-repo",
+        "url": "https://github.com/juniors719/API_Gerenciamento_Tarefas_Python",
     },
     license_info={
         "name": "GNU General Public License v3.0",
